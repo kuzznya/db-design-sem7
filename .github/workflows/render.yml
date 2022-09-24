@@ -15,4 +15,21 @@ jobs:
           message: "Render PlantUML files"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+      - name: Render PDF from Markdown
+        uses: baileyjm02/markdown-to-pdf@v1
+        with:
+          input_dir: .
+          output_dir: pdf
+          images_dir: img
+          # for example <img src="./images/file-name.png">
+          # image_import: ./images
+          # Default is true, can set to false to only get PDF files
+          build_html: false
+      - name: Commit rendered PDFs
+        run: |
+          git config --global user.name 'github-actions bot'
+          git config --global user.email 'kuzznya@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git add pdf/
+          git commit -m "Publish rendered PDFs"
+          git push
