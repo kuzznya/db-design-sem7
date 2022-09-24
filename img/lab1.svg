@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="1158px" preserveAspectRatio="none" style="width:1021px;height:1158px;background:#FFFFFF;" version="1.1" viewBox="0 0 1021 1158" width="1021px" zoomAndPan="magnify"><defs/><g><!--MD5=[e7a7e1f076ef42143f937b81d7de9aa7]
+class product--><g id="elem_product"><rect codeLine="7" fill="#F1F1F1" height="123.7813" id="product" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="258" x="318" y="574"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="57" x="418.5" y="591.9951">product</text><line style="stroke:#181818;stroke-width:0.5;" x1="319" x2="575" y1="600.2969" y2="600.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141" x="324" y="617.292">id uuid «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="319" x2="575" y1="624.5938" y2="624.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="75" x="324" y="641.5889">name text</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="117" x="324" y="657.8857">description text</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="61" x="324" y="674.1826">price int</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="246" x="324" y="690.4795">category_id uuid «FK category(id)»</text></g><!--MD5=[aa6efeff38892e418e1589090dab265e]
+class category--><g id="elem_category"><rect codeLine="16" fill="#F1F1F1" height="74.8906" id="category" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="153" x="279.5" y="758"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="64" x="324" y="775.9951">category</text><line style="stroke:#181818;stroke-width:0.5;" x1="280.5" x2="431.5" y1="784.2969" y2="784.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141" x="285.5" y="801.292">id uuid «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="280.5" x2="431.5" y1="808.5938" y2="808.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="75" x="285.5" y="825.5889">name text</text></g><!--MD5=[761ae70f82c4207862f2cbf739cbdb0b]
+class category_parameter--><g id="elem_category_parameter"><rect codeLine="22" fill="#F1F1F1" height="91.1875" id="category_parameter" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="258" x="201" y="893"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="148" x="256" y="910.9951">category_parameter</text><line style="stroke:#181818;stroke-width:0.5;" x1="202" x2="458" y1="919.2969" y2="919.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141" x="207" y="936.292">id uuid «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="202" x2="458" y1="943.5938" y2="943.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="246" x="207" y="960.5889">category_id uuid «FK category(id)»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="75" x="207" y="976.8857">name text</text></g><!--MD5=[32db3f46b94f50864cc2a1dccaa7d304]
+class product_parameter--><g id="elem_product_parameter"><rect codeLine="29" fill="#F1F1F1" height="107.4844" id="product_parameter" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="395" x="223.5" y="1044"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141" x="350.5" y="1061.9951">product_parameter</text><line style="stroke:#181818;stroke-width:0.5;" x1="224.5" x2="617.5" y1="1070.2969" y2="1070.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141" x="229.5" y="1087.292">id uuid «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="224.5" x2="617.5" y1="1094.5938" y2="1094.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="232" x="229.5" y="1111.5889">product_id uuid «FK product(id)»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="383" x="229.5" y="1127.8857">category_param_id uuid «FK category_parameter(id)»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="72" x="229.5" y="1144.1826">value text</text></g><!--MD5=[e2b9ae9a6f3d968d3533fb88890e19ee]
+class store--><g id="elem_store"><rect codeLine="37" fill="#F1F1F1" height="91.1875" id="store" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="153" x="525.5" y="415"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="38" x="583" y="432.9951">store</text><line style="stroke:#181818;stroke-width:0.5;" x1="526.5" x2="677.5" y1="441.2969" y2="441.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141" x="531.5" y="458.292">id uuid «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="526.5" x2="677.5" y1="465.5938" y2="465.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="93" x="531.5" y="482.5889">location text</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="75" x="531.5" y="498.8857">name text</text></g><!--MD5=[b1318783a598d0059c6b07b79c9141b5]
+class store_product--><g id="elem_store_product"><rect codeLine="44" fill="#F1F1F1" height="107.4844" id="store_product" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="244" x="611" y="582.5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="102" x="682" y="600.4951">store_product</text><line style="stroke:#181818;stroke-width:0.5;" x1="612" x2="854" y1="608.7969" y2="608.7969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141" x="617" y="625.792">id uuid «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="612" x2="854" y1="633.0938" y2="633.0938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="232" x="617" y="650.0889">product_id uuid «FK product(id)»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="194" x="617" y="666.3857">store_id uuid «FK store(id)»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="79" x="617" y="682.6826">amount int</text></g><!--MD5=[e59cf999063292dce8d6ea34dd10a338]
+class user--><g id="elem_user"><rect codeLine="52" fill="#F1F1F1" height="172.6719" id="user" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="156" x="524" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="30" x="587" y="24.9951">user</text><line style="stroke:#181818;stroke-width:0.5;" x1="525" x2="679" y1="33.2969" y2="33.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141" x="530" y="50.292">id uuid «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="525" x2="679" y1="57.5938" y2="57.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="105" x="530" y="74.5889">username text</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="102" x="530" y="90.8857">password text</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="75" x="530" y="107.1826">name text</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="96" x="530" y="123.4795">surname text</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="144" x="530" y="139.7764">phone_number text</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="117" x="530" y="156.0732">verified boolean</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="90" x="530" y="172.3701">address text</text></g><!--MD5=[a5d022e75c0065b9d5401ddae886f23d]
+class order--><g id="elem_order"><rect codeLine="64" fill="#F1F1F1" height="107.4844" id="order" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="252" x="476" y="240"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="39" x="582.5" y="257.9951">order</text><line style="stroke:#181818;stroke-width:0.5;" x1="477" x2="727" y1="266.2969" y2="266.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141" x="482" y="283.292">id uuid «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="477" x2="727" y1="290.5938" y2="290.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="83" x="482" y="307.5889">user_id uuid</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="91" x="482" y="323.8857">store_id uuid</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="240" x="482" y="340.1826">state_id uuid «FK order_state(id)»</text></g><!--MD5=[b776a82f2e4be966dc95557374973bfe]
+class order_item--><g id="elem_order_item"><rect codeLine="72" fill="#F1F1F1" height="107.4844" id="order_item" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="301" x="713.5" y="407"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80" x="824" y="424.9951">order_item</text><line style="stroke:#181818;stroke-width:0.5;" x1="714.5" x2="1013.5" y1="433.2969" y2="433.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141" x="719.5" y="450.292">id uuid «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="714.5" x2="1013.5" y1="457.5938" y2="457.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="196" x="719.5" y="474.5889">order_id uuid «FK order(id)»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="289" x="719.5" y="490.8857">store_product_id «FK store_product(id)»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="79" x="719.5" y="507.1826">amount int</text></g><!--MD5=[42e19793f9990c6f799483da7210e7e0]
+class order_state--><g id="elem_order_state"><rect codeLine="80" fill="#F1F1F1" height="74.8906" id="order_state" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="153" x="337.5" y="423"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="84" x="372" y="440.9951">order_state</text><line style="stroke:#181818;stroke-width:0.5;" x1="338.5" x2="489.5" y1="449.2969" y2="449.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141" x="343.5" y="466.292">id uuid «generated»</text><line style="stroke:#181818;stroke-width:1.0;" x1="338.5" x2="489.5" y1="473.5938" y2="473.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="75" x="343.5" y="490.5889">name text</text></g><path d="M6,443 L6,468.1328 A0,0 0 0 0 6,468.1328 L302,468.1328 A0,0 0 0 0 302,468.1328 L302,461 L341.5,485.7422 L302,453 L302,453 L292,443 L6,443 A0,0 0 0 0 6,443 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M292,443 L292,453 L302,453 L292,443 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="275" x="12" y="460.0669">COLLECTING | BOOKED | PAID | DELIVERED</text><!--MD5=[bc6726ab9e359cb749f91bb62e51a7da]
+link product to category--><g id="link_product_category"><path codeLine="89" d="M375.25,706.124 C375.25,706.124 375.25,749.729 375.25,749.729 " fill="none" id="product-category" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="379.25" x2="371.25" y1="753.729" y2="753.729"/><line style="stroke:#181818;stroke-width:1.0;" x1="379.25" x2="371.25" y1="750.729" y2="750.729"/><line style="stroke:#181818;stroke-width:1.0;" x1="375.25" x2="375.25" y1="749.729" y2="757.729"/><line style="stroke:#181818;stroke-width:1.0;" x1="375.25" x2="369.25" y1="706.124" y2="698.124"/><line style="stroke:#181818;stroke-width:1.0;" x1="375.25" x2="381.25" y1="706.124" y2="698.124"/><line style="stroke:#181818;stroke-width:1.0;" x1="375.25" x2="375.25" y1="706.124" y2="698.124"/><ellipse cx="375.25" cy="712.124" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[30eedb7b7e689c6b38414afba88f5421]
+link category to category_parameter--><g id="link_category_category_parameter"><path codeLine="90" d="M356,841.072 C356,841.072 356,884.765 356,884.765 " fill="none" id="category-category_parameter" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="356" x2="362" y1="884.765" y2="892.765"/><line style="stroke:#181818;stroke-width:1.0;" x1="356" x2="350" y1="884.765" y2="892.765"/><line style="stroke:#181818;stroke-width:1.0;" x1="356" x2="356" y1="884.765" y2="892.765"/><ellipse cx="356" cy="878.765" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="352" x2="360" y1="837.072" y2="837.072"/><line style="stroke:#181818;stroke-width:1.0;" x1="352" x2="360" y1="840.072" y2="840.072"/><line style="stroke:#181818;stroke-width:1.0;" x1="356" x2="356" y1="841.072" y2="833.072"/></g><!--MD5=[bebed3c1d383deb2aa24f3cddf46f950]
+link category_parameter to product_parameter--><g id="link_category_parameter_product_parameter"><path codeLine="91" d="M341.25,992.063 C341.25,992.063 341.25,1035.775 341.25,1035.775 " fill="none" id="category_parameter-product_parameter" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="341.25" x2="347.25" y1="1035.775" y2="1043.775"/><line style="stroke:#181818;stroke-width:1.0;" x1="341.25" x2="335.25" y1="1035.775" y2="1043.775"/><line style="stroke:#181818;stroke-width:1.0;" x1="341.25" x2="341.25" y1="1035.775" y2="1043.775"/><ellipse cx="341.25" cy="1029.775" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="337.25" x2="345.25" y1="988.063" y2="988.063"/><line style="stroke:#181818;stroke-width:1.0;" x1="337.25" x2="345.25" y1="991.063" y2="991.063"/><line style="stroke:#181818;stroke-width:1.0;" x1="341.25" x2="341.25" y1="992.063" y2="984.063"/></g><!--MD5=[5139063313610dc33dd87e9d3656ba46]
+link product_parameter to product--><g id="link_product_parameter_product"><path codeLine="92" d="M517.5,1035.657 C517.5,1035.657 517.5,706.304 517.5,706.304 " fill="none" id="product_parameter-product" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="517.5" x2="511.5" y1="706.304" y2="698.304"/><line style="stroke:#181818;stroke-width:1.0;" x1="517.5" x2="523.5" y1="706.304" y2="698.304"/><line style="stroke:#181818;stroke-width:1.0;" x1="517.5" x2="517.5" y1="706.304" y2="698.304"/><ellipse cx="517.5" cy="712.304" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="517.5" x2="523.5" y1="1035.657" y2="1043.657"/><line style="stroke:#181818;stroke-width:1.0;" x1="517.5" x2="511.5" y1="1035.657" y2="1043.657"/><line style="stroke:#181818;stroke-width:1.0;" x1="517.5" x2="517.5" y1="1035.657" y2="1043.657"/><ellipse cx="517.5" cy="1029.657" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[3464d54205d03b0f40e9ed4e074b5150]
+link store to store_product--><g id="link_store_store_product"><path codeLine="93" d="M644.75,514.152 C644.75,514.152 644.75,574.478 644.75,574.478 " fill="none" id="store-store_product" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="644.75" x2="650.75" y1="574.478" y2="582.478"/><line style="stroke:#181818;stroke-width:1.0;" x1="644.75" x2="638.75" y1="574.478" y2="582.478"/><line style="stroke:#181818;stroke-width:1.0;" x1="644.75" x2="644.75" y1="574.478" y2="582.478"/><ellipse cx="644.75" cy="568.478" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="640.75" x2="648.75" y1="510.152" y2="510.152"/><line style="stroke:#181818;stroke-width:1.0;" x1="640.75" x2="648.75" y1="513.152" y2="513.152"/><line style="stroke:#181818;stroke-width:1.0;" x1="644.75" x2="644.75" y1="514.152" y2="506.152"/></g><!--MD5=[e9dd9d397c65f0817560c9bc82c54007]
+link product to store_product--><g id="link_product_store_product"><path codeLine="94" d="M584.194,636 C584.194,636 602.892,636 602.892,636 " fill="none" id="product-store_product" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="602.892" x2="610.892" y1="636" y2="630"/><line style="stroke:#181818;stroke-width:1.0;" x1="602.892" x2="610.892" y1="636" y2="642"/><line style="stroke:#181818;stroke-width:1.0;" x1="602.892" x2="610.892" y1="636" y2="636"/><ellipse cx="596.892" cy="636" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="580.194" x2="580.194" y1="640" y2="632"/><line style="stroke:#181818;stroke-width:1.0;" x1="583.194" x2="583.194" y1="640" y2="632"/><line style="stroke:#181818;stroke-width:1.0;" x1="584.194" x2="576.194" y1="636" y2="636"/></g><!--MD5=[3c3a3cf2990d9b34946afb6811de1d83]
+link order to store--><g id="link_order_store"><path codeLine="95" d="M602,355.259 C602,355.259 602,406.968 602,406.968 " fill="none" id="order-store" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="606" x2="598" y1="410.968" y2="410.968"/><line style="stroke:#181818;stroke-width:1.0;" x1="606" x2="598" y1="407.968" y2="407.968"/><line style="stroke:#181818;stroke-width:1.0;" x1="602" x2="602" y1="406.968" y2="414.968"/><line style="stroke:#181818;stroke-width:1.0;" x1="602" x2="596" y1="355.259" y2="347.259"/><line style="stroke:#181818;stroke-width:1.0;" x1="602" x2="608" y1="355.259" y2="347.259"/><line style="stroke:#181818;stroke-width:1.0;" x1="602" x2="602" y1="355.259" y2="347.259"/><ellipse cx="602" cy="361.259" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[eebd241f849e08d82639f6ee9aa802bd]
+link user to order--><g id="link_user_order"><path codeLine="96" d="M602,188.06 C602,188.06 602,231.993 602,231.993 " fill="none" id="user-order" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="602" x2="608" y1="231.993" y2="239.993"/><line style="stroke:#181818;stroke-width:1.0;" x1="602" x2="596" y1="231.993" y2="239.993"/><line style="stroke:#181818;stroke-width:1.0;" x1="602" x2="602" y1="231.993" y2="239.993"/><ellipse cx="602" cy="225.993" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="598" x2="606" y1="184.06" y2="184.06"/><line style="stroke:#181818;stroke-width:1.0;" x1="598" x2="606" y1="187.06" y2="187.06"/><line style="stroke:#181818;stroke-width:1.0;" x1="602" x2="602" y1="188.06" y2="180.06"/></g><!--MD5=[cf359c365a53e8fa0fa5f3d5d3e9c9e1]
+link order to order_item--><g id="link_order_order_item"><path codeLine="97" d="M720.75,355.259 C720.75,355.259 720.75,398.842 720.75,398.842 " fill="none" id="order-order_item" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="720.75" x2="726.75" y1="398.842" y2="406.842"/><line style="stroke:#181818;stroke-width:1.0;" x1="720.75" x2="714.75" y1="398.842" y2="406.842"/><line style="stroke:#181818;stroke-width:1.0;" x1="720.75" x2="720.75" y1="398.842" y2="406.842"/><line style="stroke:#181818;stroke-width:1.0;" x1="724.75" x2="716.75" y1="396.842" y2="396.842"/><line style="stroke:#181818;stroke-width:1.0;" x1="716.75" x2="724.75" y1="351.259" y2="351.259"/><line style="stroke:#181818;stroke-width:1.0;" x1="716.75" x2="724.75" y1="354.259" y2="354.259"/><line style="stroke:#181818;stroke-width:1.0;" x1="720.75" x2="720.75" y1="355.259" y2="347.259"/></g><!--MD5=[6b33356ffc9dcc3cec47b0368ebd61f5]
+link order_item to store_product--><g id="link_order_item_store_product"><path codeLine="98" d="M784.25,522.109 C784.25,522.109 784.25,574.417 784.25,574.417 " fill="none" id="order_item-store_product" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="788.25" x2="780.25" y1="578.417" y2="578.417"/><line style="stroke:#181818;stroke-width:1.0;" x1="788.25" x2="780.25" y1="575.417" y2="575.417"/><line style="stroke:#181818;stroke-width:1.0;" x1="784.25" x2="784.25" y1="574.417" y2="582.417"/><line style="stroke:#181818;stroke-width:1.0;" x1="784.25" x2="778.25" y1="522.109" y2="514.109"/><line style="stroke:#181818;stroke-width:1.0;" x1="784.25" x2="790.25" y1="522.109" y2="514.109"/><line style="stroke:#181818;stroke-width:1.0;" x1="784.25" x2="784.25" y1="522.109" y2="514.109"/><ellipse cx="784.25" cy="528.109" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[56e0922a3012f207fcd5191603d3cde1]
+link order to order_state--><g id="link_order_order_state"><path codeLine="99" d="M483.25,355.259 C483.25,355.259 483.25,414.965 483.25,414.965 " fill="none" id="order-order_state" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="487.25" x2="479.25" y1="418.965" y2="418.965"/><line style="stroke:#181818;stroke-width:1.0;" x1="487.25" x2="479.25" y1="415.965" y2="415.965"/><line style="stroke:#181818;stroke-width:1.0;" x1="483.25" x2="483.25" y1="414.965" y2="422.965"/><line style="stroke:#181818;stroke-width:1.0;" x1="483.25" x2="477.25" y1="355.259" y2="347.259"/><line style="stroke:#181818;stroke-width:1.0;" x1="483.25" x2="489.25" y1="355.259" y2="347.259"/><line style="stroke:#181818;stroke-width:1.0;" x1="483.25" x2="483.25" y1="355.259" y2="347.259"/><ellipse cx="483.25" cy="361.259" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[21504d5102b40b73ae44d8d92787756a]
+@startuml
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity product {
+    id uuid <<generated>>
+    - -
+    name text
+    description text
+    price int
+    category_id uuid <<FK category(id)>>
+}
+
+entity category {
+    id uuid <<generated>>
+    - -
+    name text
+}
+
+entity category_parameter {
+    id uuid <<generated>>
+    - -
+    category_id uuid <<FK category(id)>>
+    name text
+}
+
+entity product_parameter {
+    id uuid <<generated>>
+    - -
+    product_id uuid <<FK product(id)>>
+    category_param_id uuid <<FK category_parameter(id)>>
+    value text
+}
+
+entity store {
+    id uuid <<generated>>
+    - -
+    location text
+    name text
+}
+
+entity store_product {
+    id uuid <<generated>>
+    - -
+    product_id uuid <<FK product(id)>>
+    store_id uuid <<FK store(id)>>
+    amount int
+}
+
+entity user {
+    id uuid <<generated>>
+    - -
+    username text
+    password text
+    name text
+    surname text
+    phone_number text
+    verified boolean
+    address text
+}
+
+entity order {
+    id uuid <<generated>>
+    - -
+    user_id uuid
+    store_id uuid
+    state_id uuid <<FK order_state(id)>>
+}
+
+entity order_item {
+    id uuid <<generated>>
+    - -
+    order_id uuid <<FK order(id)>>
+    store_product_id <<FK store_product(id)>>
+    amount int
+}
+
+entity order_state {
+    id uuid <<generated>>
+    - -
+    name text
+}
+note left of order_state::name
+  COLLECTING | BOOKED | PAID | DELIVERED
+end note
+
+product }o- -|| category
+category ||- -o{ category_parameter
+category_parameter ||- -o{ product_parameter
+product_parameter }o- -o{ product
+store ||- -o{ store_product
+store_product }o-left-|| product
+order }o- -|| store
+order }o-up-|| user
+order_item }|-up-|| order
+order_item }o- -|| store_product
+order }o- -|| order_state
+@enduml
+
+@startuml
+hide circle
+
+skinparam linetype ortho
+
+entity product {
+    id uuid <<generated>>
+    - -
+    name text
+    description text
+    price int
+    category_id uuid <<FK category(id)>>
+}
+
+entity category {
+    id uuid <<generated>>
+    - -
+    name text
+}
+
+entity category_parameter {
+    id uuid <<generated>>
+    - -
+    category_id uuid <<FK category(id)>>
+    name text
+}
+
+entity product_parameter {
+    id uuid <<generated>>
+    - -
+    product_id uuid <<FK product(id)>>
+    category_param_id uuid <<FK category_parameter(id)>>
+    value text
+}
+
+entity store {
+    id uuid <<generated>>
+    - -
+    location text
+    name text
+}
+
+entity store_product {
+    id uuid <<generated>>
+    - -
+    product_id uuid <<FK product(id)>>
+    store_id uuid <<FK store(id)>>
+    amount int
+}
+
+entity user {
+    id uuid <<generated>>
+    - -
+    username text
+    password text
+    name text
+    surname text
+    phone_number text
+    verified boolean
+    address text
+}
+
+entity order {
+    id uuid <<generated>>
+    - -
+    user_id uuid
+    store_id uuid
+    state_id uuid <<FK order_state(id)>>
+}
+
+entity order_item {
+    id uuid <<generated>>
+    - -
+    order_id uuid <<FK order(id)>>
+    store_product_id <<FK store_product(id)>>
+    amount int
+}
+
+entity order_state {
+    id uuid <<generated>>
+    - -
+    name text
+}
+note left of order_state::name
+  COLLECTING | BOOKED | PAID | DELIVERED
+end note
+
+product }o- -|| category
+category ||- -o{ category_parameter
+category_parameter ||- -o{ product_parameter
+product_parameter }o- -o{ product
+store ||- -o{ store_product
+store_product }o-left-|| product
+order }o- -|| store
+order }o-up-|| user
+order_item }|-up-|| order
+order_item }o- -|| store_product
+order }o- -|| order_state
+@enduml
+
+PlantUML version 1.2022.8beta11(Unknown compile time)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
