@@ -31,7 +31,7 @@
 
 ### Модель данных, построенная с учетом заданных требований
 
-![ER diagram](img/lab1.svg)
+![ER diagram](../img/lab1.svg)
 
 ```plantuml:lab1
 @startuml
