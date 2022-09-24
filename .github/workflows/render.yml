@@ -19,7 +19,7 @@ jobs:
         uses: baileyjm02/markdown-to-pdf@v1
         with:
           input_dir: ./
-          output_dir: pdf
+          output_dir: pdf/
           images_dir: img
           # for example <img src="./img/file-name.png">
           image_import: img
