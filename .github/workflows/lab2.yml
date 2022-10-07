@@ -35,4 +35,4 @@ jobs:
 
   render:
     needs: configure_db
-    uses: ./.github/workflows/kuzznya/db-design-sem7/render.yml
+    uses: ./.github/workflows/render.yml
