@@ -9,6 +9,12 @@ on:
       - .github/workflows/lab2.yml
       - .github/workflows/render.yml
 
+permissions:
+  contents: write
+  pages: write
+  deployments: write
+  id-token: write
+
 jobs:
   configure_db:
     runs-on: ubuntu-latest
