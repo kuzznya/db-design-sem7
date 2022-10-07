@@ -57,6 +57,15 @@ jobs:
           -u postgres
           -p password
           -imageformat svg
+      - name: Commit generated diagram
+        run: |
+          cp build/diagrams/summary/relationships.real.large.svg img/lab2.svg
+          git config --global user.name 'github-actions bot'
+          git config --global user.email 'kuzznya@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git add img/lab2.svg
+          git commit -m "Publish generated diagram"
+          git push
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
