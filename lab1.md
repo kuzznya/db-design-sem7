@@ -101,8 +101,8 @@ entity user {
 entity order {
     id uuid <<generated>>
     --
-    user_id uuid
-    store_id uuid
+    user_id uuid <<FK user(id)>>
+    store_id uuid <<FK store(id)>>
     state_id uuid <<FK order_state(id)>>
 }
 

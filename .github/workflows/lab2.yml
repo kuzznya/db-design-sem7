@@ -1,0 +1,38 @@
+name: Lab 1
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - .github/workflows/lab1.yml
+      - .github/workflows/render.yml
+
+jobs:
+  configure_db:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v3
+      - name: Initialize schema
+        run: psql --dbname=postgres --username=postgres --host=localhost --echo-all -f lab2/init.sql
+      - name: Generate schema
+        run: >
+          docker run -v ./lab2:/output schemaspy/schemaspy:6.1.0 
+          -database-type pgsql 
+          -db postgres 
+          -user postgres
+          -password password
+          -nohtml
+          -imageformat svg
+
+  render:
+    needs: configure_db
+    uses: ./.github/workflows/kuzznya/db-design-sem7/render.yml
