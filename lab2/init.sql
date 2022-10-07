@@ -37,7 +37,7 @@ CREATE TABLE store_product (
     amount int NOT NULL
 );
 
-CREATE TABLE user (
+CREATE TABLE app_user (
     id uuid PRIMARY KEY,
     username text NOT NULL,
     password text NOT NULL,
@@ -52,16 +52,16 @@ CREATE TABLE order_state (
     name text NOT NULL
 );
 
-CREATE TABLE order (
+CREATE TABLE user_order (
     id uuid PRIMARY KEY,
-    user_id uuid REFERENCES user(id) NOT NULL,
+    user_id uuid REFERENCES app_user(id) NOT NULL,
     store_id uuid REFERENCES store(id) NOT NULL,
     state_id uuid REFERENCES order_state(id) NOT NULL
 );
 
 CREATE TABLE order_item (
     id uuid PRIMARY KEY,
-    order_id uuid REFERENCES order(id) NOT NULL,
+    order_id uuid REFERENCES user_order(id) NOT NULL,
     store_product_id uuid REFERENCES store_product(id) NOT NULL,
     amount int NOT NULL DEFAULT 1
 );

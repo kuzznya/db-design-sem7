@@ -5,6 +5,7 @@ on:
     branches:
       - master
     paths:
+      - lab2
       - .github/workflows/lab2.yml
       - .github/workflows/render.yml
 
@@ -19,19 +20,41 @@ jobs:
           POSTGRES_PASSWORD: password
         ports:
           - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - uses: actions/checkout@v3
       - name: Initialize schema
-        run: psql --dbname=postgres --username=postgres --host=localhost --echo-all -f lab2/init.sql
-      - name: Generate schema
         run: >
-          docker run -v ./lab2:/output schemaspy/schemaspy:6.1.0 
-          -database-type pgsql 
+          PGPASSWORD=password
+          psql 
+          --dbname=postgres 
+          --username=postgres 
+          --host=localhost 
+          --echo-all 
+          -v ON_ERROR_STOP=1
+          -f lab2/init.sql
+      - name: Create build dir
+        run: mkdir build
+      - name: Generate diagrams
+        run: >
+          docker run -v $PWD/build:/output --network=host --user root schemaspy/schemaspy:snapshot
+          -t pgsql11 
+          -host localhost:5432
           -db postgres 
-          -user postgres
-          -password password
-          -nohtml
+          -u postgres
+          -p password
           -imageformat svg
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: build
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
 
   render:
     needs: configure_db
