@@ -1,11 +1,11 @@
-name: Lab 1
+name: Lab 2
 
 on:
   push:
     branches:
       - master
     paths:
-      - .github/workflows/lab1.yml
+      - .github/workflows/lab2.yml
       - .github/workflows/render.yml
 
 jobs:
