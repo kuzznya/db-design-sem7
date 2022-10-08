@@ -75,19 +75,19 @@ jobs:
       - name: Import store products
         run: >
           PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1 
-          -c 'CREATE TEMP TABLE store_product_uploaded (
+          -c "CREATE TEMP TABLE store_product_uploaded (
                 product_name text NOT NULL, 
                 store_name text NOT NULL, 
                 amount int NOT NULL
-              );' 
+              );" 
           -c "\copy store_product_uploaded FROM 'lab2/store_products.csv' WITH (FORMAT CSV, DELIMITER ',', HEADER)" 
-          -c 'INSERT INTO store_product (product_id, store_id, amount) 
+          -c "INSERT INTO store_product (product_id, store_id, amount) 
               SELECT p.id, s.id, sp.amount uploaded_amount 
               FROM store_product_uploaded sp 
               JOIN product p ON p.name = sp.product_name 
               JOIN store s ON s.name = sp.store_name 
               ON CONFLICT (product_id, store_id) DO UPDATE 
-              SET amount = store_product.amount + excluded.amount'
+              SET amount = store_product.amount + excluded.amount"
       - name: Create build dir
         run: mkdir build
       - name: Generate diagrams
