@@ -48,15 +48,46 @@ jobs:
         run: >
           PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
           -c "CREATE TEMP TABLE product_uploaded (
-          name text NOT NULL UNIQUE,
-          description text,
-          price int NOT NULL,
-          category text not null);" 
+                name text NOT NULL UNIQUE,
+                description text,
+                price int NOT NULL,
+                category text not null
+          );" 
           -c "\copy product_uploaded FROM 'lab2/products.csv' WITH (FORMAT CSV, DELIMITER ',', HEADER)"
           -c "INSERT INTO product (name, description, price, category_id) 
-          SELECT p.name, p.description, p.price, c.id 
-          FROM product_uploaded p 
-          JOIN category c ON p.category = c.name;"
+              SELECT p.name, p.description, p.price, c.id 
+              FROM product_uploaded p 
+              JOIN category c ON p.category = c.name;"
+      - name: Import product parameters
+        run: >
+          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
+          -c "CREATE TEMP TABLE product_param_uploaded (
+              product_name text NOT NULL, 
+              category_param text not null, 
+              value text not null
+          );" 
+          -c "\copy product_param_uploaded FROM 'lab2/product_params.csv' WITH (FORMAT CSV, DELIMITER ',', HEADER)"
+          -c "INSERT INTO product_parameter (product_id, category_param_id, value) 
+              SELECT p.id, cp.id, pp.value 
+              FROM product_param_uploaded pp 
+              JOIN product p ON p.name = pp.product_name 
+              JOIN category_parameter cp ON cp.category_id = p.category_id AND pp.category_param = cp.name;"
+      - name: Import store products
+        run: >
+          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1 
+          -c 'CREATE TEMP TABLE store_product_uploaded (
+                product_name text NOT NULL, 
+                store_name text NOT NULL, 
+                amount int NOT NULL
+              );' 
+          -c "\copy store_product_uploaded FROM 'lab2/store_products.csv' WITH (FORMAT CSV, DELIMITER ',', HEADER)" 
+          -c 'INSERT INTO store_product (product_id, store_id, amount) 
+              SELECT p.id, s.id, sp.amount uploaded_amount 
+              FROM store_product_uploaded sp 
+              JOIN product p ON p.name = sp.product_name 
+              JOIN store s ON s.name = sp.store_name 
+              ON CONFLICT (product_id, store_id) DO UPDATE 
+              SET amount = store_product.amount + excluded.amount'
       - name: Create build dir
         run: mkdir build
       - name: Generate diagrams

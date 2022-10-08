@@ -36,7 +36,8 @@ CREATE TABLE store_product (
     id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
     product_id uuid REFERENCES product(id) NOT NULL,
     store_id uuid REFERENCES store(id) NOT NULL,
-    amount int NOT NULL
+    amount int NOT NULL,
+    UNIQUE (product_id, store_id)
 );
 
 CREATE TABLE app_user (

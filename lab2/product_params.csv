@@ -1,0 +1,17 @@
+product_name,category_param,value
+Pinot Grigio,ABV,12
+Pinot Grigio,Country,Italy
+Bordeaux,ABV,13
+Bordeaux,Country,France
+Campo Viejo Rioja,ABV,13.5
+Campo Viejo Rioja,Country,Spain
+Apples,Country,Russia
+Peaches,Country,Russia
+Carrot,Country,Russia
+Potato,Country,Russia
+Yogurt,Fat %,5
+Yogurt,Lactose,true
+Milk "Happy farmer",Fat %,2.5
+Milk "Happy farmer",Lactose,true
+Milk "Prostokvashino",Fat %,3
+Milk "Prostokvashino",Lactose,true

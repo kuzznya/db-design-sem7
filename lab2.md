@@ -102,7 +102,7 @@ CREATE TABLE order_item (
 
 ### 2. Заполнение данных
 
-Заполнение данных с помощью SQL:
+**Заполнение данных с помощью SQL:**
 
 ```sql
 INSERT INTO order_state (name)
@@ -129,7 +129,9 @@ VALUES ('St. Petersburg', 'Peter the Great delivery market'),
        ('Izmir', 'Waiting for Irish visa market');
 ```
 
-Заполнение данных с помощью CSV:
+**Заполнение данных с помощью CSV:**
+
+1. product
 
 ```csv
 name,description,price,category
@@ -147,15 +149,86 @@ Spaghetti "Barilla",,15000,Grocery
 ```
 
 ```shell
-psql --username=postgres --echo-all -v ON_ERROR_STOP=1
+psql --username=postgres --echo-all -v ON_ERROR_STOP=1 \
           -c "CREATE TEMP TABLE product_uploaded (
-          name text NOT NULL UNIQUE,
-          description text,
-          price int NOT NULL,
-          category text not null);" 
-          -c "\copy product_uploaded FROM 'lab2/products.csv' WITH (FORMAT CSV, DELIMITER ',', HEADER)"
+                name text NOT NULL UNIQUE,
+                description text,
+                price int NOT NULL,
+                category text not null
+              );" \ 
+          -c "\copy product_uploaded FROM 'lab2/products.csv' WITH (FORMAT CSV, DELIMITER ',', HEADER)" \
           -c "INSERT INTO product (name, description, price, category_id) 
-          SELECT p.name, p.description, p.price, c.id 
-          FROM product_uploaded p 
-          JOIN category c ON p.category = c.name;"
+              SELECT p.name, p.description, p.price, c.id 
+              FROM product_uploaded p 
+              JOIN category c ON p.category = c.name;"
+```
+
+2. product_parameter
+
+```csv
+product_name,category_param,value
+Pinot Grigio,ABV,12
+Pinot Grigio,Country,Italy
+Bordeaux,ABV,13
+Bordeaux,Country,France
+Campo Viejo Rioja,ABV,13.5
+Campo Viejo Rioja,Country,Spain
+Apples,Country,Russia
+Peaches,Country,Russia
+Carrot,Country,Russia
+Potato,Country,Russia
+Yogurt,Fat %,5
+Yogurt,Lactose,true
+Milk "Happy farmer",Fat %,2.5
+Milk "Happy farmer",Lactose,true
+Milk "Prostokvashino",Fat %,3
+Milk "Prostokvashino",Lactose,true
+```
+
+```shell
+psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
+          -c "CREATE TEMP TABLE product_param_uploaded (
+                product_name text NOT NULL, 
+                category_param text not null, 
+                value text not null
+              );" 
+          -c "\copy product_param_uploaded FROM 'lab2/product_params.csv' WITH (FORMAT CSV, DELIMITER ',', HEADER)"
+          -c "INSERT INTO product_parameter (product_id, category_param_id, value) 
+              SELECT p.id, cp.id, pp.value 
+              FROM product_param_uploaded pp 
+              JOIN product p ON p.name = pp.product_name 
+              JOIN category_parameter cp ON cp.category_id = p.category_id AND pp.category_param = cp.name;"
+```
+
+3. store_product
+
+```csv
+product_name,store_name,amount
+Pinot Grigio,Peter the Great delivery market,2
+Bordeaux,Peter the Great delivery market,3
+Campo Viejo Rioja,Peter the Great delivery market,1
+Apples,Peter the Great delivery market,100
+Peaches,Peter the Great delivery market,50
+Carrot,Peter the Great delivery market,120
+Potato,Peter the Great delivery market,150
+Yogurt,Peter the Great delivery market,40
+Milk "Happy farmer",Peter the Great delivery market,27
+Milk "Prostokvashino",Peter the Great delivery market,40
+```
+
+```shell
+psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1 
+          -c 'CREATE TEMP TABLE store_product_uploaded (
+                product_name text NOT NULL, 
+                store_name text NOT NULL, 
+                amount int NOT NULL
+              );' 
+          -c "\copy store_product_uploaded FROM 'lab2/store_products.csv' WITH (FORMAT CSV, DELIMITER ',', HEADER)" 
+          -c 'INSERT INTO store_product (product_id, store_id, amount) 
+              SELECT p.id, s.id, sp.amount uploaded_amount 
+              FROM store_product_uploaded sp 
+              JOIN product p ON p.name = sp.product_name 
+              JOIN store s ON s.name = sp.store_name 
+              ON CONFLICT (product_id, store_id) DO UPDATE 
+              SET amount = store_product.amount + excluded.amount'
 ```
