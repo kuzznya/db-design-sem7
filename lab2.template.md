@@ -163,6 +163,8 @@ psql --username=postgres --echo-all -v ON_ERROR_STOP=1 \
               JOIN category c ON p.category = c.name;"
 ```
 
+${PRODUCT_RESULT}
+
 2. product_parameter
 
 ```csv

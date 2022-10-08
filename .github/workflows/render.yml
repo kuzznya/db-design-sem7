@@ -2,6 +2,11 @@ name: 'Render reports'
 
 on:
   workflow_call:
+    inputs:
+      TEMPLATE_VALUES:
+        type: string
+        required: false
+        default: '{}'
 
 jobs:
   render:
@@ -9,6 +14,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: git pull --ff-only
+      - name: Process templates
+        run: |
+          for s in $(echo '${{ inputs.TEMPLATE_VALUES }}' | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" ); do
+            export $s
+          done
+          for file in *.template.md ; do
+            ! [[ -f "$file" ]] && continue
+            cat "$file" | envsubst > "${file//\.template}"
+          done
       - name: Render PlantUML
         uses: grassedge/generate-plantuml-action@v1.5
         with:
