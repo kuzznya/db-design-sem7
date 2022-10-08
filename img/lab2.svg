@@ -44,9 +44,9 @@
 </g>
 </g>
 <!-- store -->
-<g id="node5" class="node">
+<g id="node6" class="node">
 <title>store</title>
-<g id="a_node5"><a xlink:href="../../tables/store.html" xlink:title="store" target="_top">
+<g id="a_node6"><a xlink:href="../../tables/store.html" xlink:title="store" target="_top">
 <polygon fill="#ffffff" stroke="transparent" points="198,-335 198,-441 273,-441 273,-335 198,-335"/>
 <polygon fill="#f5f5f5" stroke="transparent" points="198.5,-419 198.5,-441 273.5,-441 273.5,-419 198.5,-419"/>
 <polygon fill="none" stroke="black" points="198.5,-419 198.5,-441 273.5,-441 273.5,-419 198.5,-419"/>
@@ -297,9 +297,9 @@
 <ellipse fill="none" stroke="black" cx="355.5" cy="-170.1" rx="3.2" ry="3.2"/>
 </g>
 <!-- store_product -->
-<g id="node6" class="node">
+<g id="node5" class="node">
 <title>store_product</title>
-<g id="a_node6"><a xlink:href="../../tables/store_product.html" xlink:title="store_product" target="_top">
+<g id="a_node5"><a xlink:href="../../tables/store_product.html" xlink:title="store_product" target="_top">
 <polygon fill="#ffffff" stroke="transparent" points="383.5,-335 383.5,-463 510.5,-463 510.5,-335 383.5,-335"/>
 <polygon fill="#f5f5f5" stroke="transparent" points="384,-441 384,-463 511,-463 511,-441 384,-441"/>
 <polygon fill="none" stroke="black" points="384,-441 384,-463 511,-463 511,-441 384,-441"/>
