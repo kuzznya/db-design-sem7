@@ -90,7 +90,7 @@ jobs:
               SET amount = store_product.amount + excluded.amount"
       - name: Read data
         run: |
-          result=$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1 -c "SELECT * FROM product;")
+          result="$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1 -c 'SELECT * FROM product;')"
           echo "PRODUCT_RESULT='$result'" >> $GITHUB_ENV
       - name: Create build dir
         run: mkdir build
