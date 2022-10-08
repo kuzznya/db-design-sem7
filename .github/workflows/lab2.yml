@@ -76,10 +76,10 @@ jobs:
         run: >
           PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1 
           -c "CREATE TEMP TABLE store_product_uploaded (
-                product_name text NOT NULL, 
-                store_name text NOT NULL, 
-                amount int NOT NULL
-              );" 
+              product_name text NOT NULL, 
+              store_name text NOT NULL, 
+              amount int NOT NULL
+          );" 
           -c "\copy store_product_uploaded FROM 'lab2/store_products.csv' WITH (FORMAT CSV, DELIMITER ',', HEADER)" 
           -c "INSERT INTO store_product (product_id, store_id, amount) 
               SELECT p.id, s.id, sp.amount uploaded_amount 
