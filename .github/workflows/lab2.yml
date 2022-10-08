@@ -38,14 +38,25 @@ jobs:
       - uses: actions/checkout@v3
       - name: Initialize schema
         run: >
-          PGPASSWORD=password
-          psql 
-          --dbname=postgres 
-          --username=postgres 
-          --host=localhost 
-          --echo-all 
-          -v ON_ERROR_STOP=1
+          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
           -f lab2/init.sql
+      - name: Insert data
+        run: >
+          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
+          -f lab2/values.sql
+      - name: Import products
+        run: >
+          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
+          -c "CREATE TEMP TABLE product_uploaded (
+          name text NOT NULL UNIQUE,
+          description text,
+          price int NOT NULL,
+          category text not null);" 
+          -c "\copy product_uploaded FROM 'lab2/products.csv' WITH (FORMAT CSV, DELIMITER ',', HEADER)"
+          -c "INSERT INTO product (name, description, price, category_id) 
+          SELECT p.name, p.description, p.price, c.id 
+          FROM product_uploaded p 
+          JOIN category c ON p.category = c.name;"
       - name: Create build dir
         run: mkdir build
       - name: Generate diagrams
