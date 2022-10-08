@@ -180,42 +180,10 @@
 </a>
 </g>
 </g>
-<!-- product_parameter -->
-<g id="node3" class="node">
-<title>product_parameter</title>
-<g id="a_node3"><a xlink:href="../../tables/product_parameter.html" xlink:title="product_parameter" target="_top">
-<polygon fill="#ffffff" stroke="transparent" points="367,-123 367,-251 527,-251 527,-123 367,-123"/>
-<polygon fill="#f5f5f5" stroke="transparent" points="367,-229 367,-251 527,-251 527,-229 367,-229"/>
-<polygon fill="none" stroke="black" points="367,-229 367,-251 527,-251 527,-229 367,-229"/>
-<text text-anchor="start" x="372" y="-238.2" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="11.00">product_parameter</text>
-<text text-anchor="start" x="488" y="-237.2" font-family="Helvetica,sans-Serif" font-size="11.00">[table]</text>
-<polygon fill="none" stroke="black" points="367,-207 367,-229 527,-229 527,-207 367,-207"/>
-<image xlink:href="../../images/primaryKeys.png" width="11px" height="12px" preserveAspectRatio="xMinYMin meet" x="372" y="-224"/>
-<text text-anchor="start" x="399" y="-215.2" font-family="Helvetica,sans-Serif" font-size="11.00">id</text>
-<polygon fill="none" stroke="black" points="367,-185 367,-207 527,-207 527,-185 367,-185"/>
-<image xlink:href="../../images/foreignKeys.png" width="11px" height="12px" preserveAspectRatio="xMinYMin meet" x="372" y="-202"/>
-<text text-anchor="start" x="399" y="-193.2" font-family="Helvetica,sans-Serif" font-size="11.00">product_id</text>
-<polygon fill="none" stroke="black" points="367,-163 367,-185 527,-185 527,-163 367,-163"/>
-<image xlink:href="../../images/foreignKeys.png" width="11px" height="12px" preserveAspectRatio="xMinYMin meet" x="372" y="-180"/>
-<text text-anchor="start" x="399" y="-171.2" font-family="Helvetica,sans-Serif" font-size="11.00">category_param_id</text>
-<polygon fill="none" stroke="black" points="367,-141 367,-163 527,-163 527,-141 367,-141"/>
-<text text-anchor="start" x="399" y="-149.2" font-family="Helvetica,sans-Serif" font-size="11.00">value</text>
-<polygon fill="#ffffff" stroke="transparent" points="367,-123 367,-141 445,-141 445,-123 367,-123"/>
-<polygon fill="none" stroke="black" points="367,-123 367,-141 445,-141 445,-123 367,-123"/>
-<text text-anchor="start" x="370" y="-129.2" font-family="Helvetica,sans-Serif" font-size="11.00">&lt; 2</text>
-<polygon fill="#ffffff" stroke="transparent" points="445,-123 445,-141 486,-141 486,-123 445,-123"/>
-<polygon fill="none" stroke="black" points="445,-123 445,-141 486,-141 486,-123 445,-123"/>
-<text text-anchor="start" x="476" y="-129.2" font-family="Helvetica,sans-Serif" font-size="11.00"> &#160;</text>
-<polygon fill="#ffffff" stroke="transparent" points="486,-123 486,-141 527,-141 527,-123 486,-123"/>
-<polygon fill="none" stroke="black" points="486,-123 486,-141 527,-141 527,-123 486,-123"/>
-<text text-anchor="start" x="517" y="-129.2" font-family="Helvetica,sans-Serif" font-size="11.00"> &#160;</text>
-</a>
-</g>
-</g>
 <!-- product -->
-<g id="node4" class="node">
+<g id="node3" class="node">
 <title>product</title>
-<g id="a_node4"><a xlink:href="../../tables/product.html" xlink:title="product" target="_top">
+<g id="a_node3"><a xlink:href="../../tables/product.html" xlink:title="product" target="_top">
 <polygon fill="#ffffff" stroke="transparent" points="190,-164 190,-314 281,-314 281,-164 190,-164"/>
 <polygon fill="#f5f5f5" stroke="transparent" points="190.5,-292 190.5,-314 281.5,-314 281.5,-292 190.5,-292"/>
 <polygon fill="none" stroke="black" points="190.5,-292 190.5,-314 281.5,-314 281.5,-292 190.5,-292"/>
@@ -243,6 +211,45 @@
 <polygon fill="#ffffff" stroke="transparent" points="250.5,-164 250.5,-182 281.5,-182 281.5,-164 250.5,-164"/>
 <polygon fill="none" stroke="black" points="250.5,-164 250.5,-182 281.5,-182 281.5,-164 250.5,-164"/>
 <text text-anchor="start" x="262.5" y="-170.2" font-family="Helvetica,sans-Serif" font-size="11.00">2 &gt;</text>
+</a>
+</g>
+</g>
+<!-- product&#45;&gt;category -->
+<g id="edge4" class="edge">
+<title>product:w&#45;&gt;category:e</title>
+<path fill="none" stroke="black" d="M174.96,-190.72C145.45,-180.58 143.79,-140 105,-140"/>
+<polygon fill="black" stroke="black" points="181.6,-191.76 188.94,-196.56 185.55,-192.38 189.5,-193 189.5,-193 189.5,-193 185.55,-192.38 190.06,-189.44 181.6,-191.76 181.6,-191.76"/>
+<ellipse fill="none" stroke="black" cx="178.43" cy="-191.27" rx="3.2" ry="3.2"/>
+</g>
+<!-- product_parameter -->
+<g id="node4" class="node">
+<title>product_parameter</title>
+<g id="a_node4"><a xlink:href="../../tables/product_parameter.html" xlink:title="product_parameter" target="_top">
+<polygon fill="#ffffff" stroke="transparent" points="367,-123 367,-251 527,-251 527,-123 367,-123"/>
+<polygon fill="#f5f5f5" stroke="transparent" points="367,-229 367,-251 527,-251 527,-229 367,-229"/>
+<polygon fill="none" stroke="black" points="367,-229 367,-251 527,-251 527,-229 367,-229"/>
+<text text-anchor="start" x="372" y="-238.2" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="11.00">product_parameter</text>
+<text text-anchor="start" x="488" y="-237.2" font-family="Helvetica,sans-Serif" font-size="11.00">[table]</text>
+<polygon fill="none" stroke="black" points="367,-207 367,-229 527,-229 527,-207 367,-207"/>
+<image xlink:href="../../images/primaryKeys.png" width="11px" height="12px" preserveAspectRatio="xMinYMin meet" x="372" y="-224"/>
+<text text-anchor="start" x="399" y="-215.2" font-family="Helvetica,sans-Serif" font-size="11.00">id</text>
+<polygon fill="none" stroke="black" points="367,-185 367,-207 527,-207 527,-185 367,-185"/>
+<image xlink:href="../../images/foreignKeys.png" width="11px" height="12px" preserveAspectRatio="xMinYMin meet" x="372" y="-202"/>
+<text text-anchor="start" x="399" y="-193.2" font-family="Helvetica,sans-Serif" font-size="11.00">product_id</text>
+<polygon fill="none" stroke="black" points="367,-163 367,-185 527,-185 527,-163 367,-163"/>
+<image xlink:href="../../images/foreignKeys.png" width="11px" height="12px" preserveAspectRatio="xMinYMin meet" x="372" y="-180"/>
+<text text-anchor="start" x="399" y="-171.2" font-family="Helvetica,sans-Serif" font-size="11.00">category_param_id</text>
+<polygon fill="none" stroke="black" points="367,-141 367,-163 527,-163 527,-141 367,-141"/>
+<text text-anchor="start" x="399" y="-149.2" font-family="Helvetica,sans-Serif" font-size="11.00">value</text>
+<polygon fill="#ffffff" stroke="transparent" points="367,-123 367,-141 445,-141 445,-123 367,-123"/>
+<polygon fill="none" stroke="black" points="367,-123 367,-141 445,-141 445,-123 367,-123"/>
+<text text-anchor="start" x="370" y="-129.2" font-family="Helvetica,sans-Serif" font-size="11.00">&lt; 2</text>
+<polygon fill="#ffffff" stroke="transparent" points="445,-123 445,-141 486,-141 486,-123 445,-123"/>
+<polygon fill="none" stroke="black" points="445,-123 445,-141 486,-141 486,-123 445,-123"/>
+<text text-anchor="start" x="476" y="-129.2" font-family="Helvetica,sans-Serif" font-size="11.00"> &#160;</text>
+<polygon fill="#ffffff" stroke="transparent" points="486,-123 486,-141 527,-141 527,-123 486,-123"/>
+<polygon fill="none" stroke="black" points="486,-123 486,-141 527,-141 527,-123 486,-123"/>
+<text text-anchor="start" x="517" y="-129.2" font-family="Helvetica,sans-Serif" font-size="11.00"> &#160;</text>
 </a>
 </g>
 </g>
@@ -289,13 +296,6 @@
 <polygon fill="black" stroke="black" points="358.5,-171.21 364.74,-177.37 362.25,-172.61 366,-174 366,-174 366,-174 362.25,-172.61 367.26,-170.63 358.5,-171.21 358.5,-171.21"/>
 <ellipse fill="none" stroke="black" cx="355.5" cy="-170.1" rx="3.2" ry="3.2"/>
 </g>
-<!-- product&#45;&gt;category -->
-<g id="edge4" class="edge">
-<title>product:w&#45;&gt;category:e</title>
-<path fill="none" stroke="black" d="M174.96,-190.72C145.45,-180.58 143.79,-140 105,-140"/>
-<polygon fill="black" stroke="black" points="181.6,-191.76 188.94,-196.56 185.55,-192.38 189.5,-193 189.5,-193 189.5,-193 185.55,-192.38 190.06,-189.44 181.6,-191.76 181.6,-191.76"/>
-<ellipse fill="none" stroke="black" cx="178.43" cy="-191.27" rx="3.2" ry="3.2"/>
-</g>
 <!-- store_product -->
 <g id="node5" class="node">
 <title>store_product</title>
@@ -308,9 +308,11 @@
 <polygon fill="none" stroke="black" points="384,-419 384,-441 511,-441 511,-419 384,-419"/>
 <image xlink:href="../../images/primaryKeys.png" width="11px" height="12px" preserveAspectRatio="xMinYMin meet" x="389" y="-436"/>
 <text text-anchor="start" x="416" y="-427.2" font-family="Helvetica,sans-Serif" font-size="11.00">id</text>
+<polygon fill="#ffffff" stroke="transparent" points="384,-397 384,-419 511,-419 511,-397 384,-397"/>
 <polygon fill="none" stroke="black" points="384,-397 384,-419 511,-419 511,-397 384,-397"/>
 <image xlink:href="../../images/foreignKeys.png" width="11px" height="12px" preserveAspectRatio="xMinYMin meet" x="389" y="-414"/>
 <text text-anchor="start" x="416" y="-405.2" font-family="Helvetica,sans-Serif" font-size="11.00">product_id</text>
+<polygon fill="#ffffff" stroke="transparent" points="384,-375 384,-397 511,-397 511,-375 384,-375"/>
 <polygon fill="none" stroke="black" points="384,-375 384,-397 511,-397 511,-375 384,-375"/>
 <image xlink:href="../../images/foreignKeys.png" width="11px" height="12px" preserveAspectRatio="xMinYMin meet" x="389" y="-392"/>
 <text text-anchor="start" x="416" y="-383.2" font-family="Helvetica,sans-Serif" font-size="11.00">store_id</text>
