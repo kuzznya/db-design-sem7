@@ -69,6 +69,7 @@ jobs:
           -p password
           -imageformat svg
       - name: Commit generated diagram
+        continue-on-error: true # step can fail if there are no updates in the diagram
         run: |
           cp build/diagrams/summary/relationships.real.large.svg img/lab2.svg
           git config --global user.name 'github-actions bot'
