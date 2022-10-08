@@ -89,9 +89,13 @@ jobs:
               ON CONFLICT (product_id, store_id) DO UPDATE 
               SET amount = store_product.amount + excluded.amount"
       - name: Read data
+        id: read_data
         run: |
           result="$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1 -c 'SELECT * FROM product;')"
-          echo "PRODUCT_RESULT='$result'" >> $GITHUB_ENV
+          result="${result//'%'/'%25'}"
+          result="${result//$'\n'/'%0A'}"
+          result="${result//$'\r'/'%0D'}"
+          echo "::set-output name=TEMPLATE_VALUES::{\"PRODUCT_RESULT\": \"$result\"}"
       - name: Create build dir
         run: mkdir build
       - name: Generate diagrams
@@ -120,7 +124,12 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+    outputs:
+      TEMPLATE_VALUES: ${{ steps.read_data.outputs.TEMPLATE_VALUES }}
 
   render:
     needs: configure_db
     uses: ./.github/workflows/render.yml
+    with:
+      TEMPLATE_VALUES: ${{ needs.configure_db.outputs.TEMPLATE_VALUES }}
+        
