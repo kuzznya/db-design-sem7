@@ -137,15 +137,16 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v1
     outputs:
-      TEMPLATE_VALUES: '{ 
+      template_values: '{ 
         "PRODUCT_TABLE": ${{ toJSON(steps.read_data.outputs.PRODUCT_TABLE) }},
         "PRODUCT_PARAMETER_TABLE": ${{ toJSON(steps.read_data.outputs.PRODUCT_PARAMETER_TABLE) }},
-        "STORE_PRODUCT_TABLE": ${{ toJSON(steps.read_data.outputs.STORE_PRODUCT_TABLE }}
+        "STORE_PRODUCT_TABLE": ${{ toJSON(steps.read_data.outputs.STORE_PRODUCT_TABLE) }}
         }'
 
   render:
     needs: configure_db
     uses: ./.github/workflows/render.yml
     with:
-      TEMPLATE_VALUES: ${{ needs.configure_db.outputs.TEMPLATE_VALUES }}
+      path: ./lab2.md
+      template_values: ${{ needs.configure_db.outputs.template_values }}
         

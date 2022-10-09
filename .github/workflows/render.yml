@@ -3,10 +3,14 @@ name: 'Render reports'
 on:
   workflow_call:
     inputs:
-      TEMPLATE_VALUES:
+      template_values:
         type: string
         required: false
         default: '{}'
+      path:
+        type: string
+        required: false
+        default: './'
 
 jobs:
   render:
@@ -23,13 +27,14 @@ jobs:
           done
           echo "Values: $ENVSUBST_VARS"
           
-          for file in *.template.md ; do
+          for file in $(ls ${{ inputs.path }}) ; do
             ! [[ -f "$file" ]] && continue
-            bash -c "$ENVSUBST_VARS envsubst < $file > ${file//\.template}"
-            rm -f "$file"
+            ! [[ $file =~ \.md ]] && continue
+            bash -c "$ENVSUBST_VARS envsubst < $file > $file.tmp"
+            mv $file.tmp $file
           done
         env:
-          TEMPLATE_VALUES: ${{ inputs.TEMPLATE_VALUES }}
+          TEMPLATE_VALUES: ${{ inputs.template_values }}
       - name: Render PlantUML
         uses: grassedge/generate-plantuml-action@v1.5
         with:
@@ -40,7 +45,7 @@ jobs:
       - name: Render PDF from Markdown
         uses: baileyjm02/markdown-to-pdf@v1
         with:
-          input_dir: ./
+          input_path: ${{ inputs.path }}
           output_dir: pdf/
           images_dir: img
           # for example <img src="./img/file-name.png">

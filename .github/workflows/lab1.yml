@@ -12,3 +12,5 @@ on:
 jobs:
   render:
     uses: ./.github/workflows/render.yml
+    with:
+      path: ./lab1.md
