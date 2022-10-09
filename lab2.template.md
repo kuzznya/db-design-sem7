@@ -163,7 +163,11 @@ psql --username=postgres --echo-all -v ON_ERROR_STOP=1 \
               JOIN category c ON p.category = c.name;"
 ```
 
-${PRODUCT_RESULT}
+```sql 
+SELECT * FROM product;
+```
+
+${PRODUCT_TABLE}
 
 2. product_parameter
 
@@ -202,6 +206,12 @@ psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERR
               JOIN category_parameter cp ON cp.category_id = p.category_id AND pp.category_param = cp.name;"
 ```
 
+```sql
+SELECT * FROM product_parameter;
+```
+
+${PRODUCT_PARAMETER_TABLE}
+
 3. store_product
 
 ```csv
@@ -234,3 +244,9 @@ psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERR
               ON CONFLICT (product_id, store_id) DO UPDATE 
               SET amount = store_product.amount + excluded.amount'
 ```
+
+```sql
+SELECT * FROM store_product;
+```
+
+${STORE_PRODUCT_TABLE}

@@ -16,14 +16,20 @@ jobs:
       - run: git pull --ff-only
       - name: Process templates
         run: |
-          for s in $(echo '${{ inputs.TEMPLATE_VALUES }}' | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" ); do
-            export $s
+          ENVSUBST_VARS=""
+          for key in $(jq -n "$TEMPLATE_VALUES" | jq -r 'to_entries | map(.key) | .[]') ; do 
+            value="$(jq -n "$TEMPLATE_VALUES" | jq -r ".$key")"
+            ENVSUBST_VARS+="$key='$value' "
           done
+          echo "Values: $ENVSUBST_VARS"
+          
           for file in *.template.md ; do
             ! [[ -f "$file" ]] && continue
-            cat "$file" | envsubst > "${file//\.template}"
+            bash -c "$ENVSUBST_VARS envsubst < $file > ${file//\.template}"
             rm -f "$file"
           done
+        env:
+          TEMPLATE_VALUES: ${{ inputs.TEMPLATE_VALUES }}
       - name: Render PlantUML
         uses: grassedge/generate-plantuml-action@v1.5
         with:

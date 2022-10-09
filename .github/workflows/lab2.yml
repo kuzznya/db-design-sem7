@@ -91,11 +91,23 @@ jobs:
       - name: Read data
         id: read_data
         run: |
-          result="$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1 -c 'SELECT * FROM product;')"
-          result="${result//'%'/'%25'}"
-          result="${result//$'\n'/'%0A'}"
-          result="${result//$'\r'/'%0D'}"
-          echo "::set-output name=TEMPLATE_VALUES::{\"PRODUCT_RESULT\": \"$result\"}"
+          product_table="$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost -v ON_ERROR_STOP=1 --html -c 'SELECT * FROM product;')"
+          product_table="${product_table//'%'/'%25'}"
+          product_table="${product_table//$'\n'/'%0A'}"
+          product_table="${product_table//$'\r'/'%0D'}"
+          echo "::set-output name=PRODUCT_TABLE::$product_table"
+          
+          product_parameter_table="$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost -v ON_ERROR_STOP=1 --html -c 'SELECT * FROM product_parameter;')"
+          product_parameter_table="${product_parameter_table//'%'/'%25'}"
+          product_parameter_table="${product_parameter_table//$'\n'/'%0A'}"
+          product_parameter_table="${product_parameter_table//$'\r'/'%0D'}"
+          echo "::set-output name=PRODUCT_PARAMETER_TABLE::$product_parameter_table"
+          
+          store_product_table="$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost -v ON_ERROR_STOP=1 --html -c 'SELECT * FROM store_product;')"
+          store_product_table="${store_product_table//'%'/'%25'}"
+          store_product_table="${store_product_table//$'\n'/'%0A'}"
+          store_product_table="${store_product_table//$'\r'/'%0D'}"
+          echo "::set-output name=STORE_PRODUCT_TABLE::$store_product_table"
       - name: Create build dir
         run: mkdir build
       - name: Generate diagrams
@@ -125,7 +137,11 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v1
     outputs:
-      TEMPLATE_VALUES: ${{ steps.read_data.outputs.TEMPLATE_VALUES }}
+      TEMPLATE_VALUES: '{ 
+        "PRODUCT_TABLE": ${{ toJSON(steps.read_data.outputs.PRODUCT_TABLE) }},
+        "PRODUCT_PARAMETER_TABLE": ${{ toJSON(steps.read_data.outputs.PRODUCT_PARAMETER_TABLE) }},
+        "STORE_PRODUCT_TABLE": ${{ toJSON(steps.read_data.outputs.STORE_PRODUCT_TABLE }}
+        }'
 
   render:
     needs: configure_db
