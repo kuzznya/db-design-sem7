@@ -55,7 +55,7 @@ CREATE INDEX IF NOT EXISTS product_category_name_idx ON product (category_id, na
 EXPLAIN ANALYZE
 SELECT * FROM product 
 WHERE category_id = (SELECT id FROM category c WHERE c.name = 'Alcohol') 
-  AND name LIKE 'Pin%'
+  AND name LIKE 'Pin%' COLLATE "C"
 ```
 
 ${PRODUCT_SEARCH}
@@ -71,7 +71,7 @@ CREATE INDEX IF NOT EXISTS app_user_name_surname_idx ON app_user (name COLLATE "
 ```sql
 EXPLAIN ANALYZE
 SELECT * FROM app_user 
-WHERE name LIKE 'Ily%' OR surname LIKE 'Ily%'
+WHERE name LIKE 'Ily%' COLLATE "C" OR surname LIKE 'Ily%' COLLATE "C"
 ```
 
 ${USER_SEARCH}
