@@ -52,7 +52,7 @@ CREATE INDEX IF NOT EXISTS product_category_name_idx ON product (category_id, na
 Выполнение запроса:
 
 ```sql
-EXPLAIN ANALYZE 
+EXPLAIN 
 SELECT * FROM product 
 WHERE category_id = (SELECT id FROM category c WHERE c.name = 'Alcohol') 
   AND name LIKE 'Pin%'
@@ -69,7 +69,7 @@ CREATE INDEX IF NOT EXISTS app_user_name_surname_idx ON app_user (name COLLATE "
 Выполнение запроса:
 
 ```sql
-EXPLAIN ANALYZE 
+EXPLAIN 
 SELECT * FROM app_user 
 WHERE name LIKE 'Ily%' OR surname LIKE 'Ily%'
 ```
