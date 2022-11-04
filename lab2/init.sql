@@ -42,7 +42,7 @@ CREATE TABLE store_product (
 
 CREATE TABLE app_user (
     id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-    username text NOT NULL,
+    username text NOT NULL UNIQUE,
     password text NOT NULL,
     name text NOT NULL,
     surname text NOT NULL,

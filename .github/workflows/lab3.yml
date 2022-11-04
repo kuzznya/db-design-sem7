@@ -1,0 +1,150 @@
+name: Lab 3
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - lab3
+      - .github/workflows/lab3.yml
+      - .github/workflows/render.yml
+
+permissions:
+  contents: write
+  pages: write
+  deployments: write
+  id-token: write
+
+jobs:
+  configure_db:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v3
+      - name: Initialize schema
+        run: >
+          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
+          -f lab2/init.sql
+      - name: Insert data
+        run: >
+          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
+          -f lab2/values.sql
+      - name: Import products
+        run: >
+          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
+          -c "CREATE TEMP TABLE product_uploaded (
+                name text NOT NULL UNIQUE,
+                description text,
+                price int NOT NULL,
+                category text not null
+          );" 
+          -c "\copy product_uploaded FROM 'lab2/products.csv' WITH (FORMAT CSV, DELIMITER ',', HEADER)"
+          -c "INSERT INTO product (name, description, price, category_id) 
+              SELECT p.name, p.description, p.price, c.id 
+              FROM product_uploaded p 
+              JOIN category c ON p.category = c.name;"
+      - name: Import product parameters
+        run: >
+          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
+          -c "CREATE TEMP TABLE product_param_uploaded (
+              product_name text NOT NULL, 
+              category_param text not null, 
+              value text not null
+          );" 
+          -c "\copy product_param_uploaded FROM 'lab2/product_params.csv' WITH (FORMAT CSV, DELIMITER ',', HEADER)"
+          -c "INSERT INTO product_parameter (product_id, category_param_id, value) 
+              SELECT p.id, cp.id, pp.value 
+              FROM product_param_uploaded pp 
+              JOIN product p ON p.name = pp.product_name 
+              JOIN category_parameter cp ON cp.category_id = p.category_id AND pp.category_param = cp.name;"
+      - name: Import store products
+        run: >
+          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1 
+          -c "CREATE TEMP TABLE store_product_uploaded (
+              product_name text NOT NULL, 
+              store_name text NOT NULL, 
+              amount int NOT NULL
+          );" 
+          -c "\copy store_product_uploaded FROM 'lab2/store_products.csv' WITH (FORMAT CSV, DELIMITER ',', HEADER)" 
+          -c "INSERT INTO store_product (product_id, store_id, amount) 
+              SELECT p.id, s.id, sp.amount uploaded_amount 
+              FROM store_product_uploaded sp 
+              JOIN product p ON p.name = sp.product_name 
+              JOIN store s ON s.name = sp.store_name 
+              ON CONFLICT (product_id, store_id) DO UPDATE 
+              SET amount = store_product.amount + excluded.amount"
+      - name: Create views
+        run: >
+          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
+          -f lab3/views.sql
+      - name: Create indexes
+        run: >
+          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
+          -f lab3/indexes.sql
+      - name: Read data
+        id: read_data
+        run: |
+          store_product_param="$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost -v ON_ERROR_STOP=1 --html -c 'SELECT * FROM store_product_param')"
+          store_product_param="${store_product_param//'%'/'%25'}"
+          store_product_param="${store_product_param//$'\n'/'%0A'}"
+          store_product_param="${store_product_param//$'\r'/'%0D'}"
+          echo "::set-output name=STORE_PRODUCT_PARAM::$store_product_param"
+
+          product_search="$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost -v ON_ERROR_STOP=1 --html -c 'EXPLAIN ANALYZE SELECT * FROM product WHERE category_id = (SELECT id FROM category c WHERE c.name = ' \'Alcohol\' ') AND name LIKE ' \'Pin%\' )"
+          product_search="${product_search//'%'/'%25'}"
+          product_search="${product_search//$'\n'/'%0A'}"
+          product_search="${product_search//$'\r'/'%0D'}"
+          echo "::set-output name=PRODUCT_SEARCH::$product_search"
+          
+          user_search="$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost -v ON_ERROR_STOP=1 --html -c 'EXPLAIN ANALYZE SELECT * FROM app_user WHERE name LIKE ' \'Ily%\' ' OR surname LIKE ' \'Ily%\')"
+          user_search="${user_search//'%'/'%25'}"
+          user_search="${user_search//$'\n'/'%0A'}"
+          user_search="${user_search//$'\r'/'%0D'}"
+          echo "::set-output name=USER_SEARCH::$user_search"
+      - name: Create build dir
+        run: mkdir build
+      - name: Generate diagrams
+        run: >
+          docker run -v $PWD/build:/output --network=host --user root schemaspy/schemaspy:snapshot
+          -t pgsql11 
+          -host localhost:5432
+          -db postgres 
+          -u postgres
+          -p password
+          -imageformat svg
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: build
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
+    outputs:
+      template_values: '{ 
+        "STORE_PRODUCT_PARAM": ${{ toJSON(steps.read_data.outputs.STORE_PRODUCT_PARAM) }},
+        "PRODUCT_SEARCH": ${{ toJSON(steps.read_data.outputs.PRODUCT_SEARCH) }},
+        "USER_SEARCH": ${{ toJSON(steps.read_data.outputs.USER_SEARCH) }}
+        }'
+
+  render:
+    needs: configure_db
+    uses: ./.github/workflows/render.yml
+    with:
+      path: ./lab3.md
+      template_values: ${{ needs.configure_db.outputs.template_values }}
+        

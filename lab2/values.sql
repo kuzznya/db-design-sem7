@@ -20,3 +20,9 @@ INSERT INTO store (location, name)
 VALUES ('St. Petersburg', 'Peter the Great delivery market'),
        ('Moscow', 'Mausoleum market'),
        ('Izmir', 'Waiting for Irish visa market');
+
+INSERT INTO app_user (username, password, name, surname, phone_number, verified)
+VALUES ('kuzznya', '***', 'Ilya', 'Kuznetsov', '+79117500058', true),
+       ('afterbvrner', '***', 'Maxim', 'Golish', '***', true),
+       ('xaghoul', '***', 'Gamzat', 'Gadgimagomedov', '***', true),
+       ('whoami', '***', 'John', 'Doe', '***', false);
