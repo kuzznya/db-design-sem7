@@ -60,7 +60,7 @@ WHERE category_id = (SELECT id FROM category c WHERE c.name = 'Alcohol')
 
 ${PRODUCT_SEARCH}
 
-Создание индекса для таблицы app_user, позволяющего искать пользователя по префиксу имени или фамилии:
+Создание индекса для таблицы app_user, позволяющего искать пользователя по префиксу имени и фамилии:
 
 ```sql
 CREATE INDEX IF NOT EXISTS app_user_name_surname_idx ON app_user (name COLLATE "C", surname COLLATE "C");
@@ -71,7 +71,7 @@ CREATE INDEX IF NOT EXISTS app_user_name_surname_idx ON app_user (name COLLATE "
 ```sql
 EXPLAIN ANALYZE
 SELECT * FROM app_user 
-WHERE name LIKE 'Ily%' COLLATE "C" OR surname LIKE 'Ily%' COLLATE "C"
+WHERE name LIKE 'Ily%' COLLATE "C" AND surname LIKE 'Ily%' COLLATE "C"
 ```
 
 ${USER_SEARCH}
