@@ -105,14 +105,14 @@ jobs:
           store_product_param="${store_product_param//$'\r'/'%0D'}"
           echo "::set-output name=STORE_PRODUCT_PARAM::$store_product_param"
 
-          query="EXPLAIN ANALYZE SELECT * FROM product WHERE category_id = (SELECT id FROM category c WHERE c.name = 'Alcohol') AND name LIKE 'Pin%' COLLATE "C""
+          query="EXPLAIN ANALYZE SELECT * FROM product WHERE category_id = (SELECT id FROM category c WHERE c.name = 'Alcohol') AND name LIKE 'Pin%' COLLATE \"C\""
           product_search="$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost -v ON_ERROR_STOP=1 --html -c "$query")"
           product_search="${product_search//'%'/'%25'}"
           product_search="${product_search//$'\n'/'%0A'}"
           product_search="${product_search//$'\r'/'%0D'}"
           echo "::set-output name=PRODUCT_SEARCH::$product_search"
           
-          query="EXPLAIN ANALYZE SELECT * FROM app_user WHERE name LIKE 'Ily%' COLLATE "C" OR surname LIKE 'Ily%' COLLATE "C""
+          query="EXPLAIN ANALYZE SELECT * FROM app_user WHERE name LIKE 'Ily%' COLLATE \"C\" OR surname LIKE 'Ily%' COLLATE \"C\""
           user_search="$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost -v ON_ERROR_STOP=1 --html -c "$query")"
           user_search="${user_search//'%'/'%25'}"
           user_search="${user_search//$'\n'/'%0A'}"
