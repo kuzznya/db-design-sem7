@@ -97,7 +97,7 @@ jobs:
               MD5(RANDOM()::TEXT) AS name, 
               MD5(RANDOM()::TEXT) AS surname, 
               MD5(RANDOM()::TEXT) AS phone_number
-              FROM generate_series(1, 10000);"
+              FROM generate_series(1, 10000);" 
           -c "INSERT INTO product (name, description, price, category_id)
               SELECT 'generated_' || MD5(RANDOM()::TEXT) AS name,
               MD5(RANDOM()::TEXT) AS description,
