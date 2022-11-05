@@ -137,7 +137,7 @@ jobs:
           store_product_anon_data="${store_product_anon_data//'%'/'%25'}"
           store_product_anon_data="${store_product_anon_data//$'\n'/'%0A'}"
           store_product_anon_data="${store_product_anon_data//$'\r'/'%0D'}"
-          store_product_anon_data="${store_product_anon_data//'/}"
+          store_product_anon_data="${store_product_anon_data//\'/}"
           echo "::set-output name=STORE_PRODUCT_ANON_DATA::$store_product_anon_data"
       - name: Create build dir
         run: mkdir build
