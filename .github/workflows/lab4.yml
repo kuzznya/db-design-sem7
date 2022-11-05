@@ -123,14 +123,14 @@ jobs:
           app_user_data="${app_user_data//'%'/'%25'}"
           app_user_data="${app_user_data//$'\n'/'%0A'}"
           app_user_data="${app_user_data//$'\r'/'%0D'}"
-          app_user_data="${app_user_data//'/}"
+          app_user_data="${app_user_data//\'/}"
           echo "::set-output name=APP_USER_DATA::$app_user_data"
           
           store_anon_data="$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost -v ON_ERROR_STOP=1 --html -c 'SELECT * FROM store_anon LIMIT 20')"
           store_anon_data="${store_anon_data//'%'/'%25'}"
           store_anon_data="${store_anon_data//$'\n'/'%0A'}"
           store_anon_data="${store_anon_data//$'\r'/'%0D'}"
-          store_anon_data="${store_anon_data//'/}"
+          store_anon_data="${store_anon_data//\'/}"
           echo "::set-output name=STORE_ANON_DATA::$store_anon_data"
           
           store_product_anon_data="$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost -v ON_ERROR_STOP=1 --html -c 'SELECT * FROM store_product_anon LIMIT 20')"
