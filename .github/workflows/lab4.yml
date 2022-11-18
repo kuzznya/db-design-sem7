@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - lab3
+      - lab4
       - .github/workflows/lab4.yml
       - .github/workflows/render.yml
 
