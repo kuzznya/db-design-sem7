@@ -59,7 +59,8 @@ CREATE TABLE user_order (
     id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
     user_id uuid REFERENCES app_user(id) NOT NULL,
     store_id uuid REFERENCES store(id) NOT NULL,
-    state_id uuid REFERENCES order_state(id) NOT NULL
+    state_id uuid REFERENCES order_state(id) NOT NULL,
+    created timestamp DEFAULT now()
 );
 
 CREATE TABLE order_item (

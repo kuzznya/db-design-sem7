@@ -1,0 +1,172 @@
+name: Lab 5
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - lab5
+      - .github/workflows/lab5.yml
+      - .github/workflows/render.yml
+
+permissions:
+  contents: write
+  pages: write
+  deployments: write
+  id-token: write
+
+jobs:
+  configure_db:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    services:
+      postgres:
+        image: registry.gitlab.com/dalibo/postgresql_anonymizer:stable
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v3
+      - name: Initialize schema
+        run: ./run_psql.sh --echo-all -f lab2/init.sql
+      - name: Insert data
+        run: ./run_psql.sh --echo-all -f lab2/values.sql
+      - name: Import products
+        run: >
+          ./run_psql.sh --echo-all
+          -c "CREATE TEMP TABLE product_uploaded (
+                name text NOT NULL UNIQUE,
+                description text,
+                price int NOT NULL,
+                category text not null
+          );" 
+          -c "\copy product_uploaded FROM 'lab2/products.csv' WITH (FORMAT CSV, DELIMITER ',', HEADER)"
+          -c "INSERT INTO product (name, description, price, category_id) 
+              SELECT p.name, p.description, p.price, c.id 
+              FROM product_uploaded p 
+              JOIN category c ON p.category = c.name;"
+      - name: Import product parameters
+        run: >
+          ./run_psql.sh --echo-all
+          -c "CREATE TEMP TABLE product_param_uploaded (
+              product_name text NOT NULL, 
+              category_param text not null, 
+              value text not null
+          );" 
+          -c "\copy product_param_uploaded FROM 'lab2/product_params.csv' WITH (FORMAT CSV, DELIMITER ',', HEADER)"
+          -c "INSERT INTO product_parameter (product_id, category_param_id, value) 
+              SELECT p.id, cp.id, pp.value 
+              FROM product_param_uploaded pp 
+              JOIN product p ON p.name = pp.product_name 
+              JOIN category_parameter cp ON cp.category_id = p.category_id AND pp.category_param = cp.name;"
+      - name: Import store products
+        run: >
+          ./run_psql.sh --echo-all 
+          -c "CREATE TEMP TABLE store_product_uploaded (
+              product_name text NOT NULL, 
+              store_name text NOT NULL, 
+              amount int NOT NULL
+          );" 
+          -c "\copy store_product_uploaded FROM 'lab2/store_products.csv' WITH (FORMAT CSV, DELIMITER ',', HEADER)" 
+          -c "INSERT INTO store_product (product_id, store_id, amount) 
+              SELECT p.id, s.id, sp.amount uploaded_amount 
+              FROM store_product_uploaded sp 
+              JOIN product p ON p.name = sp.product_name 
+              JOIN store s ON s.name = sp.store_name 
+              ON CONFLICT (product_id, store_id) DO UPDATE 
+              SET amount = store_product.amount + excluded.amount"
+      - name: Generate random data
+        run: |
+          ./run_psql.sh --echo-all \
+          -c "INSERT INTO app_user (username, password, name, surname, phone_number)
+              SELECT MD5(RANDOM()::TEXT) AS username, 
+              '***' AS password, 
+              MD5(RANDOM()::TEXT) AS name, 
+              MD5(RANDOM()::TEXT) AS surname, 
+              MD5(RANDOM()::TEXT) AS phone_number
+              FROM generate_series(1, 10000);" \
+          -c "INSERT INTO product (name, description, price, category_id)
+              SELECT 'generated_' || MD5(RANDOM()::TEXT) AS name,
+              MD5(RANDOM()::TEXT) AS description,
+              100000 AS price,
+              (SELECT id FROM category WHERE name = 'Alcohol')
+              FROM generate_series(1, 10000);"
+      - name: Create views
+        run: ./run_psql.sh --echo-all -f lab3/views.sql
+      - name: Create indexes
+        run: ./run_psql.sh --echo-all -f lab3/indexes.sql
+      - name: Generate orders
+        run: ./run_psql.sh --echo-all -f lab5/orders.sql
+      - name: Partition table user_order
+        run: ./run_psql.sh --echo-all -f lab5/partitions.sql
+      - name: Read data
+        id: read_data
+        run: |
+          user_order_count="$(./run_psql.sh --html -c 'SELECT count(*) FROM ONLY user_order')"
+          user_order_count="${user_order_count//'%'/'%25'}"
+          user_order_count="${user_order_count//$'\n'/'%0A'}"
+          user_order_count="${user_order_count//$'\r'/'%0D'}"
+          user_order_count="${user_order_count//\'/}"
+          echo "::set-output name=USER_ORDER_COUNT::$user_order_count"
+          
+          user_order_2015="$(./run_psql.sh --html -c 'SELECT * FROM user_order_2015 LIMIT 10')"
+          user_order_2015="${user_order_2015//'%'/'%25'}"
+          user_order_2015="${user_order_2015//$'\n'/'%0A'}"
+          user_order_2015="${user_order_2015//$'\r'/'%0D'}"
+          user_order_2015="${user_order_2015//\'/}"
+          echo "::set-output name=USER_ORDER_2015::$user_order_2015"
+          
+          user_order_2020="$(./run_psql.sh --html -c 'SELECT * FROM user_order_2020 LIMIT 10')"
+          user_order_2020="${user_order_2020//'%'/'%25'}"
+          user_order_2020="${user_order_2020//$'\n'/'%0A'}"
+          user_order_2020="${user_order_2020//$'\r'/'%0D'}"
+          user_order_2020="${user_order_2020//\'/}"
+          echo "::set-output name=USER_ORDER_2020::$user_order_2020"
+          
+          user_order_2022="$(./run_psql.sh --html -c 'SELECT * FROM user_order_2022 LIMIT 10')"
+          user_order_2022="${user_order_2022//'%'/'%25'}"
+          user_order_2022="${user_order_2022//$'\n'/'%0A'}"
+          user_order_2022="${user_order_2022//$'\r'/'%0D'}"
+          user_order_2022="${user_order_2022//\'/}"
+          echo "::set-output name=USER_ORDER_2022::$user_order_2022"
+      - name: Create build dir
+        run: mkdir build
+      - name: Generate diagrams
+        run: >
+          docker run -v $PWD/build:/output --network=host --user root schemaspy/schemaspy:snapshot
+          -t pgsql11 
+          -host localhost:5432
+          -db postgres 
+          -u postgres
+          -p password
+          -imageformat svg
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: build
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
+    outputs:
+      template_values: '{ 
+        "USER_ORDER_COUNT": ${{ toJSON(steps.read_data.outputs.USER_ORDER_COUNT) }},
+        "USER_ORDER_2015": ${{ toJSON(steps.read_data.outputs.USER_ORDER_2015) }},
+        "USER_ORDER_2020": ${{ toJSON(steps.read_data.outputs.USER_ORDER_2020) }},
+        "USER_ORDER_2022": ${{ toJSON(steps.read_data.outputs.USER_ORDER_2022) }}
+        }'
+
+  render:
+    needs: configure_db
+    uses: ./.github/workflows/render.yml
+    with:
+      path: ./lab5.md
+      template_values: ${{ needs.configure_db.outputs.template_values }}
