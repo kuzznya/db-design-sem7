@@ -37,16 +37,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Initialize schema
-        run: >
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
-          -f lab2/init.sql
+        run: ./run_psql.sh --echo-all -f lab2/init.sql
       - name: Insert data
-        run: >
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
-          -f lab2/values.sql
+        run: ./run_psql.sh --echo-all -f lab2/values.sql
       - name: Import products
         run: >
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
+          ./run_psql.sh --echo-all
           -c "CREATE TEMP TABLE product_uploaded (
                 name text NOT NULL UNIQUE,
                 description text,
@@ -60,7 +56,7 @@ jobs:
               JOIN category c ON p.category = c.name;"
       - name: Import product parameters
         run: >
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
+          ./run_psql.sh --echo-all
           -c "CREATE TEMP TABLE product_param_uploaded (
               product_name text NOT NULL, 
               category_param text not null, 
@@ -74,7 +70,7 @@ jobs:
               JOIN category_parameter cp ON cp.category_id = p.category_id AND pp.category_param = cp.name;"
       - name: Import store products
         run: >
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1 
+          ./run_psql.sh --echo-all 
           -c "CREATE TEMP TABLE store_product_uploaded (
               product_name text NOT NULL, 
               store_name text NOT NULL, 
@@ -90,7 +86,7 @@ jobs:
               SET amount = store_product.amount + excluded.amount"
       - name: Generate random data
         run: |
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1 \
+          ./run_psql.sh --echo-all \
           -c "INSERT INTO app_user (username, password, name, surname, phone_number)
               SELECT MD5(RANDOM()::TEXT) AS username, 
               '***' AS password, 
@@ -105,31 +101,27 @@ jobs:
               (SELECT id FROM category WHERE name = 'Alcohol')
               FROM generate_series(1, 10000);"
       - name: Create views
-        run: >
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
-          -f lab3/views.sql
+        run: ./run_psql.sh --echo-all -f lab3/views.sql
       - name: Create indexes
-        run: >
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
-          -f lab3/indexes.sql
+        run: ./run_psql.sh --echo-all -f lab3/indexes.sql
       - name: Read data
         id: read_data
         run: |
-          store_product_param="$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost -v ON_ERROR_STOP=1 --html -c 'SELECT * FROM store_product_param')"
+          store_product_param="$(./run_psql.sh --html -c 'SELECT * FROM store_product_param')"
           store_product_param="${store_product_param//'%'/'%25'}"
           store_product_param="${store_product_param//$'\n'/'%0A'}"
           store_product_param="${store_product_param//$'\r'/'%0D'}"
           echo "::set-output name=STORE_PRODUCT_PARAM::$store_product_param"
 
           query="EXPLAIN ANALYZE SELECT * FROM product WHERE category_id = (SELECT id FROM category c WHERE c.name = 'Alcohol') AND name LIKE 'Pin%' COLLATE \"C\""
-          product_search="$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost -v ON_ERROR_STOP=1 --html -c "$query")"
+          product_search="$(./run_psql.sh --html -c "$query")"
           product_search="${product_search//'%'/'%25'}"
           product_search="${product_search//$'\n'/'%0A'}"
           product_search="${product_search//$'\r'/'%0D'}"
           echo "::set-output name=PRODUCT_SEARCH::$product_search"
           
           query="EXPLAIN ANALYZE SELECT * FROM app_user WHERE name LIKE 'Ily%' COLLATE \"C\" AND surname LIKE 'Ily%' COLLATE \"C\""
-          user_search="$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost -v ON_ERROR_STOP=1 --html -c "$query")"
+          user_search="$(./run_psql.sh --html -c "$query")"
           user_search="${user_search//'%'/'%25'}"
           user_search="${user_search//$'\n'/'%0A'}"
           user_search="${user_search//$'\r'/'%0D'}"

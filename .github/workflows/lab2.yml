@@ -37,16 +37,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Initialize schema
-        run: >
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
-          -f lab2/init.sql
+        run: ./run_psql.sh --echo-all -f lab2/init.sql
       - name: Insert data
-        run: >
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
-          -f lab2/values.sql
+        run: ./run_psql.sh --echo-all -f lab2/values.sql
       - name: Import products
         run: >
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
+          ./run_psql.sh --echo-all 
           -c "CREATE TEMP TABLE product_uploaded (
                 name text NOT NULL UNIQUE,
                 description text,
@@ -60,7 +56,7 @@ jobs:
               JOIN category c ON p.category = c.name;"
       - name: Import product parameters
         run: >
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
+          ./run_psql.sh --echo-all 
           -c "CREATE TEMP TABLE product_param_uploaded (
               product_name text NOT NULL, 
               category_param text not null, 
@@ -74,7 +70,7 @@ jobs:
               JOIN category_parameter cp ON cp.category_id = p.category_id AND pp.category_param = cp.name;"
       - name: Import store products
         run: >
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1 
+          ./run_psql.sh --echo-all 
           -c "CREATE TEMP TABLE store_product_uploaded (
               product_name text NOT NULL, 
               store_name text NOT NULL, 
@@ -91,19 +87,19 @@ jobs:
       - name: Read data
         id: read_data
         run: |
-          product_table="$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost -v ON_ERROR_STOP=1 --html -c 'SELECT * FROM product;')"
+          product_table="$(./run_psql.sh --html -c 'SELECT * FROM product;')"
           product_table="${product_table//'%'/'%25'}"
           product_table="${product_table//$'\n'/'%0A'}"
           product_table="${product_table//$'\r'/'%0D'}"
           echo "::set-output name=PRODUCT_TABLE::$product_table"
           
-          product_parameter_table="$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost -v ON_ERROR_STOP=1 --html -c 'SELECT * FROM product_parameter;')"
+          product_parameter_table="$(./run_psql.sh --html -c 'SELECT * FROM product_parameter;')"
           product_parameter_table="${product_parameter_table//'%'/'%25'}"
           product_parameter_table="${product_parameter_table//$'\n'/'%0A'}"
           product_parameter_table="${product_parameter_table//$'\r'/'%0D'}"
           echo "::set-output name=PRODUCT_PARAMETER_TABLE::$product_parameter_table"
           
-          store_product_table="$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost -v ON_ERROR_STOP=1 --html -c 'SELECT * FROM store_product;')"
+          store_product_table="$(./run_psql.sh --html -c 'SELECT * FROM store_product;')"
           store_product_table="${store_product_table//'%'/'%25'}"
           store_product_table="${store_product_table//$'\n'/'%0A'}"
           store_product_table="${store_product_table//$'\r'/'%0D'}"

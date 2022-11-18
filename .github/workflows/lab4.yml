@@ -37,16 +37,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Initialize schema
-        run: >
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
-          -f lab2/init.sql
+        run: ./run_psql.sh --echo-all -f lab2/init.sql
       - name: Insert data
-        run: >
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
-          -f lab2/values.sql
+        run: ./run_psql.sh --echo-all -f lab2/values.sql
       - name: Import products
         run: >
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
+          ./run_psql.sh --echo-all
           -c "CREATE TEMP TABLE product_uploaded (
                 name text NOT NULL UNIQUE,
                 description text,
@@ -60,7 +56,7 @@ jobs:
               JOIN category c ON p.category = c.name;"
       - name: Import product parameters
         run: >
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
+          ./run_psql.sh --echo-all
           -c "CREATE TEMP TABLE product_param_uploaded (
               product_name text NOT NULL, 
               category_param text not null, 
@@ -74,7 +70,7 @@ jobs:
               JOIN category_parameter cp ON cp.category_id = p.category_id AND pp.category_param = cp.name;"
       - name: Import store products
         run: >
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1 
+          ./run_psql.sh --echo-all 
           -c "CREATE TEMP TABLE store_product_uploaded (
               product_name text NOT NULL, 
               store_name text NOT NULL, 
@@ -90,7 +86,7 @@ jobs:
               SET amount = store_product.amount + excluded.amount"
       - name: Generate random data
         run: |
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1 \
+          ./run_psql.sh --echo-all \
           -c "INSERT INTO app_user (username, password, name, surname, phone_number)
               SELECT MD5(RANDOM()::TEXT) AS username, 
               '***' AS password, 
@@ -105,17 +101,11 @@ jobs:
               (SELECT id FROM category WHERE name = 'Alcohol')
               FROM generate_series(1, 10000);"
       - name: Create views
-        run: >
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
-          -f lab3/views.sql
+        run: ./run_psql.sh --echo-all -f lab3/views.sql
       - name: Create indexes
-        run: >
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
-          -f lab3/indexes.sql
+        run: ./run_psql.sh --echo-all -f lab3/indexes.sql
       - name: Anonymize database
-        run: >
-          PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost --echo-all -v ON_ERROR_STOP=1
-          -f lab4/anon.sql
+        run: ./run_psql.sh --echo-all -f lab4/anon.sql
       - name: Read data
         id: read_data
         run: |
@@ -126,14 +116,14 @@ jobs:
           app_user_data="${app_user_data//\'/}"
           echo "::set-output name=APP_USER_DATA::$app_user_data"
           
-          store_anon_data="$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost -v ON_ERROR_STOP=1 --html -c 'SELECT * FROM store_anon LIMIT 20')"
+          store_anon_data="$(./run_psql.sh --html -c 'SELECT * FROM store_anon LIMIT 20')"
           store_anon_data="${store_anon_data//'%'/'%25'}"
           store_anon_data="${store_anon_data//$'\n'/'%0A'}"
           store_anon_data="${store_anon_data//$'\r'/'%0D'}"
           store_anon_data="${store_anon_data//\'/}"
           echo "::set-output name=STORE_ANON_DATA::$store_anon_data"
           
-          store_product_anon_data="$(PGPASSWORD=password psql --dbname=postgres --username=postgres --host=localhost -v ON_ERROR_STOP=1 --html -c 'SELECT * FROM store_product_anon LIMIT 20')"
+          store_product_anon_data="$(./run_psql.sh --html -c 'SELECT * FROM store_product_anon LIMIT 20')"
           store_product_anon_data="${store_product_anon_data//'%'/'%25'}"
           store_product_anon_data="${store_product_anon_data//$'\n'/'%0A'}"
           store_product_anon_data="${store_product_anon_data//$'\r'/'%0D'}"
