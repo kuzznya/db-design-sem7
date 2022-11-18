@@ -7,7 +7,7 @@
 
 <p style="text-align: center; margin-bottom: 200px">Факультет информационных технологий и программирования</p>
 
-<h3 style="text-align: center;">Лабораторная работа №4</h3>
+<h3 style="text-align: center;">Лабораторная работа №5</h3>
 
 <p style="text-align: center; margin-bottom: 150px">по предмету “Проектирование баз данных”<br/>Вариант 1</p>
 
