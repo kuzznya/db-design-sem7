@@ -112,33 +112,25 @@ jobs:
       - name: Read data
         id: read_data
         run: |
-          user_order_count="$(./run_psql.sh --html -c 'SELECT count(*) FROM ONLY user_order')"
-          user_order_count="${user_order_count//'%'/'%25'}"
-          user_order_count="${user_order_count//$'\n'/'%0A'}"
-          user_order_count="${user_order_count//$'\r'/'%0D'}"
-          user_order_count="${user_order_count//\'/}"
-          echo "::set-output name=USER_ORDER_COUNT::$user_order_count"
+          user_order_count=$(./run_psql.sh --html -c 'SELECT count(*) FROM ONLY user_order')
+          echo "USER_ORDER_COUNT<<EOF" >> $GITHUB_OUTPUT
+          echo "$user_order_count" >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
           
-          user_order_2015="$(./run_psql.sh --html -c 'SELECT * FROM user_order_2015 LIMIT 10')"
-          user_order_2015="${user_order_2015//'%'/'%25'}"
-          user_order_2015="${user_order_2015//$'\n'/'%0A'}"
-          user_order_2015="${user_order_2015//$'\r'/'%0D'}"
-          user_order_2015="${user_order_2015//\'/}"
-          echo "::set-output name=USER_ORDER_2015::$user_order_2015"
+          user_order_2015=$(./run_psql.sh --html -c 'SELECT * FROM user_order_2015 LIMIT 10')"\
+          echo "USER_ORDER_2015<<EOF" >> $GITHUB_OUTPUT
+          echo "$user_order_2015" >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
           
-          user_order_2020="$(./run_psql.sh --html -c 'SELECT * FROM user_order_2020 LIMIT 10')"
-          user_order_2020="${user_order_2020//'%'/'%25'}"
-          user_order_2020="${user_order_2020//$'\n'/'%0A'}"
-          user_order_2020="${user_order_2020//$'\r'/'%0D'}"
-          user_order_2020="${user_order_2020//\'/}"
-          echo "::set-output name=USER_ORDER_2020::$user_order_2020"
+          user_order_2020=$(./run_psql.sh --html -c 'SELECT * FROM user_order_2020 LIMIT 10')
+          echo "USER_ORDER_2020<<EOF" >> $GITHUB_OUTPUT
+          echo "$user_order_2020" >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
           
-          user_order_2022="$(./run_psql.sh --html -c 'SELECT * FROM user_order_2022 LIMIT 10')"
-          user_order_2022="${user_order_2022//'%'/'%25'}"
-          user_order_2022="${user_order_2022//$'\n'/'%0A'}"
-          user_order_2022="${user_order_2022//$'\r'/'%0D'}"
-          user_order_2022="${user_order_2022//\'/}"
-          echo "::set-output name=USER_ORDER_2022::$user_order_2022"
+          user_order_2022=$(./run_psql.sh --html -c 'SELECT * FROM user_order_2022 LIMIT 10')
+          echo "USER_ORDER_2022<<EOF" >> $GITHUB_OUTPUT
+          echo "$user_order_2022" >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
       - name: Create build dir
         run: mkdir build
       - name: Generate diagrams

@@ -88,23 +88,20 @@ jobs:
       - name: Read data
         id: read_data
         run: |
-          product_table="$(./run_psql.sh --html -c 'SELECT * FROM product;')"
-          product_table="${product_table//'%'/'%25'}"
-          product_table="${product_table//$'\n'/'%0A'}"
-          product_table="${product_table//$'\r'/'%0D'}"
-          echo "::set-output name=PRODUCT_TABLE::$product_table"
+          product_table=$(./run_psql.sh --html -c 'SELECT * FROM product;')
+          echo "PRODUCT_TABLE<<EOF" >> $GITHUB_OUTPUT
+          echo "$product_table" >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
           
-          product_parameter_table="$(./run_psql.sh --html -c 'SELECT * FROM product_parameter;')"
-          product_parameter_table="${product_parameter_table//'%'/'%25'}"
-          product_parameter_table="${product_parameter_table//$'\n'/'%0A'}"
-          product_parameter_table="${product_parameter_table//$'\r'/'%0D'}"
-          echo "::set-output name=PRODUCT_PARAMETER_TABLE::$product_parameter_table"
+          product_parameter_table=$(./run_psql.sh --html -c 'SELECT * FROM product_parameter;')
+          echo "PRODUCT_PARAMETER_TABLE<<EOF" >> $GITHUB_OUTPUT
+          echo "$product_parameter_table" >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
           
-          store_product_table="$(./run_psql.sh --html -c 'SELECT * FROM store_product;')"
-          store_product_table="${store_product_table//'%'/'%25'}"
-          store_product_table="${store_product_table//$'\n'/'%0A'}"
-          store_product_table="${store_product_table//$'\r'/'%0D'}"
-          echo "::set-output name=STORE_PRODUCT_TABLE::$store_product_table"
+          store_product_table=$(./run_psql.sh --html -c 'SELECT * FROM store_product;')
+          echo "STORE_PRODUCT_TABLE<<EOF" >> $GITHUB_OUTPUT
+          echo "$store_product_table" >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
       - name: Create build dir
         run: mkdir build
       - name: Generate diagrams

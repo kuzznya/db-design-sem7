@@ -108,25 +108,22 @@ jobs:
       - name: Read data
         id: read_data
         run: |
-          store_product_param="$(./run_psql.sh --html -c 'SELECT * FROM store_product_param')"
-          store_product_param="${store_product_param//'%'/'%25'}"
-          store_product_param="${store_product_param//$'\n'/'%0A'}"
-          store_product_param="${store_product_param//$'\r'/'%0D'}"
-          echo "::set-output name=STORE_PRODUCT_PARAM::$store_product_param"
+          store_product_param=$(./run_psql.sh --html -c 'SELECT * FROM store_product_param')
+          echo "STORE_PRODUCT_PARAM<<EOF" >> $GITHUB_OUTPUT
+          echo "$store_product_param" >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
 
           query="EXPLAIN ANALYZE SELECT * FROM product WHERE category_id = (SELECT id FROM category c WHERE c.name = 'Alcohol') AND name LIKE 'Pin%' COLLATE \"C\""
-          product_search="$(./run_psql.sh --html -c "$query")"
-          product_search="${product_search//'%'/'%25'}"
-          product_search="${product_search//$'\n'/'%0A'}"
-          product_search="${product_search//$'\r'/'%0D'}"
-          echo "::set-output name=PRODUCT_SEARCH::$product_search"
+          product_search=$(./run_psql.sh --html -c "$query")
+          echo "PRODUCT_SEARCH<<EOF" >> $GITHUB_OUTPUT
+          echo "$product_search" >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
           
           query="EXPLAIN ANALYZE SELECT * FROM app_user WHERE name LIKE 'Ily%' COLLATE \"C\" AND surname LIKE 'Ily%' COLLATE \"C\""
-          user_search="$(./run_psql.sh --html -c "$query")"
-          user_search="${user_search//'%'/'%25'}"
-          user_search="${user_search//$'\n'/'%0A'}"
-          user_search="${user_search//$'\r'/'%0D'}"
-          echo "::set-output name=USER_SEARCH::$user_search"
+          user_search=$(./run_psql.sh --html -c "$query")
+          echo "USER_SEARCH<<EOF" >> $GITHUB_OUTPUT
+          echo "$user_search" >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
       - name: Create build dir
         run: mkdir build
       - name: Generate diagrams
