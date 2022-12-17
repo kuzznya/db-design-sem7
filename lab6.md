@@ -234,6 +234,7 @@ db.product.explain().find({
 ```
 
 queryPlanner:
+
 ```json
 {
   "namespace": "test.product",
