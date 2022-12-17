@@ -19,6 +19,7 @@ jobs:
       - uses: actions/checkout@v3
       - run: git pull --ff-only
       - name: Process templates
+        if: ${{ inputs.template_values != '{}' }}
         run: |
           ENVSUBST_VARS=""
           for key in $(jq -n "$TEMPLATE_VALUES" | jq -r 'to_entries | map(.key) | .[]') ; do 
