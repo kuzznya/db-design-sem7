@@ -1,0 +1,16 @@
+name: Lab 6
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - lab6.md
+      - .github/workflows/lab6.yml
+      - .github/workflows/render.yml
+
+jobs:
+  render:
+    uses: ./.github/workflows/render.yml
+    with:
+      path: ./lab6.md
